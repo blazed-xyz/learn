@@ -1,0 +1,563 @@
+# Blazed Labs LLC Python Instruction
+
+# Print text to console
+print('Hello')
+
+def addNum(num1, num2):
+	"""Helpful documentation text"""
+	return num1 + num2
+	
+print(addNum.__doc__)
+
+# Will print: 
+#	Helpful documentation text
+
+
+# variables
+
+	num = 10
+	str = "Hello"
+	
+# assigning constants from an external file
+
+	# king.py
+	QUEEN = 2
+	
+	# main.py
+	import king
+
+	print(king.QUEEN)
+	# prints: 
+	# 2
+	
+# collections
+
+	# List
+	fruits = ["apple", "orange"]
+	
+	# Tuple
+	num = (1, 2, 3)
+	
+	# Dictionary
+	alpha = {'a': 'apple', 'b': 'ball', 'c': 'cat'}
+	
+	# Set
+	vow = {'a', 'e', 'i'}
+	
+# type conversions
+
+	# Explicit
+		num_str = "123"
+		int(num_str)
+		
+# user input
+
+	num = input('Enter a number: ')
+	
+
+
+# namespace and "global"
+
+	# In Python, you can nest functions.
+	# You can break from namespacing with global functions
+	
+	def outer_function():
+		global a
+		a = 20
+			
+			def inner_function():
+				global a
+				a = 30
+		
+
+
+# if...else
+	
+	num = 5
+	if(num == 5):
+		print('Num is 5!')
+	else:
+		print('It cant be!')
+		
+	# Will print:
+	# Num is 5!
+	
+	
+	
+# if...elif...else
+	num = 5
+	if(num == 5):
+		print('Num is 5!')
+	elif(num == 3):
+		print('Not three!')
+	else:
+		print('It cant be!')
+	
+	# Will print:
+	# Num is 5!
+	
+	
+	
+# for loop
+
+	numbers = [2, 5, 9]
+	
+	sum = 0
+	
+	for val in numbers:
+		sum = sum+val
+		print(sum)
+		
+	# Will output:
+	# 2
+	# 7
+	# 16
+		
+		
+		
+# for loop with else
+	
+	numbers = [2, 5, 9]
+	
+	for i in numbers:
+		print(i)
+	else:
+		print('End of list')
+		
+	# Will output:
+	# 2
+	# 5
+	# 9
+	# End of list
+	
+	
+	
+# Generating a sequence of numbers
+		# The range function will generate a list of numbers,
+		
+		print(range(10))
+		# Will output:
+		# [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+		# range ( n = total numbers )
+		
+		print(range(2, 8))
+		# Will output:
+		# [2, 3, 4, 5, 6, 7]
+		# range ( n0 = start, n1 = end ) 
+		
+		print(list(range(2, 20, 3)))
+		# Will output:
+		# [2, 5, 8, 11, 14, 17]
+		# range ( n0 = start, n1 = end, n2 = step incriment )
+		
+		
+
+# while loop
+	
+	n = 5
+	print("Countdown...")
+	while(n > 0):
+		print(n)
+		n = n-1
+		
+	print("Boom!")
+	
+	# Will output:
+	# Countdown...
+	# 5
+	# 4
+	# 3
+	# 2
+	# 1
+	# Boom!
+	
+	
+	
+# while loop with else
+	
+	n = 5
+	print("Countdown...")
+	while(n > 0):
+		print(n)
+		n = n-1
+	else:
+		print("Boom!")
+
+	# Will output:
+	# Countdown...
+	# 5
+	# 4
+	# 3
+	# 2
+	# 1
+	# Boom!
+	
+	
+	
+# break statement
+	
+	n=100
+	print("Uh... ohhh")
+	while(n >= 0):
+		print(n)
+		# Don't worry
+		if(n == 98):
+			break
+		
+		n = n-1
+	
+	print("See! That wasn't so bad!")
+	print(n)
+	
+	# Will output:
+	# Uh... ohhh
+	# 100
+	# 99
+	# 98
+	# See! That wasn't so bad!
+	# 98
+	
+	
+	
+# continue statement
+
+	# The continue statement "breaks" out of the current iteration
+	# in the loop, but "continues" after that.
+	
+	num = 6
+	while (num > 0):
+		num = num-1
+		if(num == 3):
+			#skip 3
+			continue
+		print(num)
+		
+	# Will output:
+	# 5
+	# 4
+	# 2
+	# 1
+
+
+
+# pass statement
+
+	# The pass statement is basically a "null" statement, it can be used to fill an empty function when functionality
+	# will be added later.
+	
+	def plannedFunction(args):
+		pass
+		
+	class Test:
+		pass
+		
+		
+		
+# variable scope within functions
+	
+	def is_ten():
+		x = 10
+		print("Inside function: ", x)
+		
+	x = 20
+	is_ten()
+	print("Outside function: ", x)
+		
+		
+	# Will output:
+	# Inside function: 10
+	# Outside function: 20
+	
+	
+# function arguments
+
+
+	# Positional arguments, no defaults
+	
+	
+		def greet(name, msg):
+			print("Hello", name + ' ... ' + msg)
+			
+		greet("Billy", "you smell")
+		
+		# Will output:
+		# Hello Billy ... you smell
+
+
+
+	# Positional arguments, 1 default
+
+
+
+		def greetNice(name, msg = "you smell nice"):
+			print("Hello", name + ' ... ' + msg)
+			
+		greetNice("Gina")
+		
+		# Will output:
+		# Hello Gina ... you smell nice
+		
+	
+	
+	# Keyword arguments, no default
+	
+	
+		greet(msg="you smell", name="Billy")
+		
+		# Will output:
+		# Hello Billy ... you smell
+		
+	
+	
+	# Keyword arguments, followed by positional arguments
+	# will result in an error
+
+		greet(msg="you smell","Billy")
+		
+		# Will result in an error:
+		# SyntaxError: non-keyword arg after keyword arg
+	
+
+
+	# Arbitrary arguments
+	
+		def people(*names):
+			for name in names:
+				print("hello", name)
+		
+		people("bill", "steve", "tom")
+		
+		# Will output:
+		# hello bill
+		# hello steve
+		# hello tom
+		
+		
+	
+
+# extending and appending lists
+
+	odd = [1,3,5]
+	
+	odd.append(7)
+	
+	odd.extend([9,11,13])
+	
+	print(odd)
+	
+	# Will output:
+	# [1,3,5,7,9,11,13]
+
+
+
+
+# deleting items from list
+	num = [1,2,3]
+	
+	del num[0]
+	
+	print(num)
+	
+	# Will output:
+	# [2,3]
+	
+	
+	
+	
+# Popular List Methods
+	# append() - Add an element to the end of the list
+	# extend() - Add all elements of a list to the another list
+	# insert() - Insert an item at the defined index
+	# remove() - Removes an item from the list
+	# pop() - Removes and returns an element at the given index
+	# clear() - Removes all items from the list
+	# count() - Returns the count of the number of items passed as an argument
+	# sort() - Sort items in a list in ascending order
+	# reverse() - Reverse the order of items in the list
+	# copy() - Returns a shallow copy of the list
+	
+	
+# Popular String Methods
+	# lower() - Converts string to lower case (ex. str.lower() )
+	# upper() - Converts string to upper case
+	# split() - Splits a string by a given delimeter
+	# join() - Joins multiple fragments into one string
+	# find() - Finds the character(s) within the string
+	# replace(a, b) - Replaces a with b
+	
+	
+	
+	
+
+# files
+	
+	# Open file in the current directory
+		f = open("test.txt")
+	
+	# specifying full path
+		f = open("C:/Python38/README.txt")
+		f = open("/var/www/LICENSE.txt")
+	
+	
+	# Files should be wrapped in a try block, and should close
+		
+		try:
+			f = open("test.txt", encoding = 'utf-8')
+		finally:
+			f.close()
+		
+		
+	
+	# Writing to files
+		with open("test.txt",'w',encoding = 'utf-8') as f:
+		   f.write("my first file\n")
+		   f.write("This file\n\n")
+		   f.write("contains three lines\n")
+	
+	
+	
+	# Reading files
+		# read the next 4 data
+	
+			f.read(4)
+			
+			
+		# read in the rest till end of file
+
+			f.read()
+			
+		
+		# After end of file, will return an empty string
+			
+			f.read()
+			
+		
+		# get the current file position
+		
+			f.tell()    
+		
+		
+		# bring file cursor to initial position
+		
+			f.seek(0)
+			
+			
+		# Read next line
+		
+			f.readline()
+	
+	
+	
+	
+	# File methods
+		#	close()	Closes an opened file. It has no effect if the file is already closed.
+		#	detach() - Separates the underlying binary buffer from the TextIOBase and returns it.
+		#	fileno() - Returns an integer number (file descriptor) of the file.
+		#	flush() - Flushes the write buffer of the file stream.
+		#	isatty() - Returns True if the file stream is interactive.
+		#	read(n) - Reads at most n characters from the file. Reads till end of file if it is negative or None.
+		#	readable() - Returns True if the file stream can be read from.
+		#	readline(n=-1) - Reads and returns one line from the file. Reads in at most n bytes if specified.
+		#	readlines(n=-1) - Reads and returns a list of lines from the file. Reads in at most n bytes/characters if specified.
+		#	seek(offset,from=SEEK_SET) - Changes the file position to offset bytes, in reference to from (start, current, end).
+		#	seekable() - Returns True if the file stream supports random access.
+		#	tell() - Returns the current file location.
+		#	truncate(size=None) - Resizes the file stream to size bytes. If size is not specified, resizes to current location.
+		#	writable() - Returns True if the file stream can be written to.
+		#	write(s) - Writes the string s to the file and returns the number of characters written.
+		#	writelines(lines) - Writes a list of [lines] to the file.
+		
+		
+		
+		
+# exceptions
+	
+	try:
+		print("k")
+	except:
+		print("Oops!", sys.exc_info()[0], "occurred.")
+        print("Next entry.")
+        print()
+	
+	
+	
+	
+	try:
+        print("k")
+    except Exception as e:
+        print("Oops!", e.__class__, "occurred.")
+        print("Next entry.")
+        print()
+	
+	
+	
+	
+	try:
+		print("k")
+	except:
+		print("Oops!", sys.exc_info()[0], "occurred.")
+        print("Next entry.")
+        print()
+	else:
+		print("Ho")
+		
+		
+	
+
+
+	try:
+		print("k")
+	finally:
+		print("Ho")
+	
+	
+	
+	
+		
+# object oriented programming
+
+	class Parrot:
+		pass
+		
+
+	obj = Parrot()
+
+
+
+
+	# constructors
+
+	
+		class Car:
+			miles = 0
+			color = ""
+			def __init__(self, color):
+				self.color = color
+				print("Car is", self.color)
+				
+			def drive(self):
+				self.miles = self.miles + 10
+				print("New Milage: ", self.miles)
+
+		
+		blueCar = Car("blue")
+		blueCar.drive()
+		blueCar.drive()
+		
+	
+	
+	# inheritance
+	
+		class Machine:
+			def __init__(self):
+				print("I AM MACHINE")
+			
+			
+		class Car(Machine):
+			def __init__(self):
+				super().__init__()
+				print("I AM now car")
+		
+		
+		greenCar = Car()
+		

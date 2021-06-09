@@ -1,0 +1,20 @@
+/* 
+	Blazed Labs LLC Node JS Instruction
+	(c) 2021 Blazed Labs LLC - Open Source [MIT]
+	blazed.xyz * blazedlabs.com * blz.one
+*/
+
+//Create a simple server
+const http = require('http')
+
+const hostname = '127.0.0.1'
+const port = process.env.PORT
+const server = http.createServer((req, res) => {
+	res.statusCode = 200
+	res.setHeader('Content-Type', 'text/plain')
+	res.end('Hello World!\n')
+})
+	
+server.listen(port, hostname, () => {
+	console.log(`Server running at: http://${hostname}:${port}/`)
+})

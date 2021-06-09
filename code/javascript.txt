@@ -1,0 +1,68 @@
+Javascript Tutorial
+
+// Write to console
+console.log("Hello World!");
+
+// Statements
+var a, b, c;
+var d = 5;
+var e = 6;
+var f = d + e;
+
+var g = "Gee wiz";
+
+// Operations
+var h = (5 + 6) * 10;
+var i = "I " + "am" + " holsh";
+
+// Comments
+// This is a comment
+/* This is a block
+
+comment 
+*/
+
+// Object
+var car = {color: "black", size: 10};
+//car.size = 10
+//car.color = "black"
+
+// Function
+function name(parameter1, parameter2, parameter3){
+
+}
+
+function addnum(){
+	return e + d;
+}
+// Call function:
+//addnum();
+
+// Source : https://www.w3schools.com/js/js_strings.asp
+
+// Escape character
+var str = "String with \"big\" problems";
+var std = 'Another example of it\'s issues';
+
+// Escape sequences
+// \b - Backspace
+// \f - Form feed
+// \n - New line
+// \r - Carriage return
+// \t - Horizontal tab
+// \v - Vertical tab
+
+
+// String methods
+var txt = "sfhbsj";
+var len = txt.length;
+
+// Find index of occurance
+var ste = "needle in this";
+var pos = ste.indexOf("needle");
+
+var elem = document.getElementById('element');
+var elem = document.querySelector('#itemId');
+var elem = document.querySelector('.itemClass');
+
+
