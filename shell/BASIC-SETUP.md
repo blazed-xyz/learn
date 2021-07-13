@@ -63,3 +63,25 @@ For cloud machines
 git config --global user.name "BlazedLabs-CX#"
 git config --global user.email dev@blazed.space
 ```
+
+7. Other basic setup tasks
+
+```shell
+sudo timedatectl set-timezone America/New_York
+```
+
+## Create a swapfile
+
+```shell
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
+```
+
+## Set Hostname
+
+```shell
+hostnamectl set-hostname 'BLZ-CX#'
+```
