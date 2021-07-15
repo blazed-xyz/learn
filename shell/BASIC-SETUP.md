@@ -83,5 +83,5 @@ sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
 ## Set Hostname
 
 ```shell
-hostnamectl set-hostname 'BLZ-CX#'
+hostnamectl set-hostname 'blz-cx#'
 ```
