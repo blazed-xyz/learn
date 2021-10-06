@@ -1,22 +1,22 @@
 # Server Provisioning Steps & Standards
 ## Blazed Labs LLC (c) 2021 Tyler Ruff
 
-1. Install CentOS 8
+1. Install CentOS 8 or CentOS 7
 2. Install some pre-recs
 ```shell
 sudo yum install -y git nano gcc-c++ make
 ```
 
 
-3. Create user 'blazed'
+3. Create user 'swell'
 
 ```shell
-sudo adduser blazed
-sudo passwd blazed
-sudo usermod -aG wheel blazed
+sudo adduser swell
+sudo passwd swell
+sudo usermod -aG wheel swell
 ```
 
-4. Secure server with SSH key & disable root login & change bind port
+4. Secure server with SSH key & disable root login
 
 ```shell
 sudo nano /etc/ssh/sshd_config
@@ -57,27 +57,11 @@ git config --global user.name "BlazedLabs-TX#"
 git config --global user.email git@blazed.space
 ```
 
-For cloud machines
 
-```shell
-git config --global user.name "BlazedLabs-CX#"
-git config --global user.email dev@blazed.space
-```
-
-7. Other basic setup tasks
+1. Other basic setup tasks
 
 ```shell
 sudo timedatectl set-timezone America/New_York
-```
-
-## Create a swapfile
-
-```shell
-sudo fallocate -l 4G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
 ```
 
 ## Set Hostname
