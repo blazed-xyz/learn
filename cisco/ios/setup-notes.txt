@@ -1,0 +1,49 @@
+# CISCO
+
+## How to reset
+1. Start serial connection, power off device and power on
+2. Within 1 minute of boot, send a break sequence
+rommon 2> confreg 0x2142
+rommon 3> reset
+3. Once the router boots, issue the enable command
+4. config t
+5. config-register 0x2102
+6. copy run start
+
+## Hot to setup (basic)
+1. Begin with a freshly wiped router, you will see the following screen
+Router>
+2. Enter "enable"
+Router> enable
+Router#
+3. Enter "config t"
+Router# config t
+Router (config)#
+4. Enable password/user authentication
+enable secret [PASSWORD]
+username blazed secret [PASSWORD]
+line vty 0 4
+	login local
+5. Setup dhcp pool
+ip http server
+ip dhcp excluded-address 192.168.8.1 192.168.8.7
+ip dhcp pool BLZ-OFFICE-POOL
+	network 192.168.8.0 255.255.255.0
+	default router 192.168.8.1
+	dns-server 8.8.8.8 8.8.4.4
+6. Setup NAT
+int g0/0
+	ip address dhcp
+	ip nat outside
+	
+int g0/1
+	ip address 192.168.8.1 255.255.255.0
+	ip nat inside
+	
+ip nat inside source list 10 interface G0/0 overload
+7. Setup EIGRP routing protocol
+router eigrp 1
+	network 192.168.8.0
+8. Setup access list
+access-list 10 permit 192.168.0.0 0.0.255.255
+
