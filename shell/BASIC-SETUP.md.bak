@@ -9,12 +9,12 @@ sudo yum update -y
 ```
 
 
-3. Create user 'blazed'
+3. Create user 'swell'
 
 ```shell
-sudo adduser blazed
-sudo passwd blazed
-sudo usermod -aG wheel blazed
+sudo adduser swell
+sudo passwd swell
+sudo usermod -aG wheel swell
 ```
 
 4. Secure server with SSH key & disable root login
