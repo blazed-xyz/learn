@@ -1,7 +1,7 @@
 # Server Provisioning Steps & Standards
 ## Blazed Labs LLC (c) 2021 Tyler Ruff
 
-1. Install CentOS 8 or CentOS 7
+1. Install Rocky Linux 8
 2. Install some pre-recs
 ```shell
 sudo yum install -y git nano gcc-c++ make
@@ -70,7 +70,7 @@ sudo timedatectl set-timezone America/New_York
 ## Set Hostname
 
 ```shell
-sudo hostnamectl set-hostname 'blz-cx#'
+sudo hostnamectl set-hostname 'dc.blazed.space'
 ```
 
 ## Prevent sleep on lid close (if laptop)
@@ -86,4 +86,10 @@ HandleLidSwitch=ignore
 
 ```shell
 sudo systemctl restart systemd-logind.service
+```
+
+## Setup Domain & Host Mapping
+
+```shell
+sudo nano /etc/hosts
 ```

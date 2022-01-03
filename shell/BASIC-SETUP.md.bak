@@ -1,7 +1,12 @@
 # Server Provisioning Steps & Standards
 ## Blazed Labs LLC (c) 2021 Tyler Ruff
+0. You may want to set network config,
+```shell
 
-1. Install CentOS 8 or CentOS 7
+
+```
+
+1. Install Rocky Linux 8
 2. Install some pre-recs
 ```shell
 sudo yum install -y git nano gcc-c++ make
@@ -9,12 +14,12 @@ sudo yum update -y
 ```
 
 
-3. Create user 'swell'
+3. Create user 'blazed'
 
 ```shell
-sudo adduser swell
-sudo passwd swell
-sudo usermod -aG wheel swell
+sudo adduser blazed
+sudo passwd blazed
+sudo usermod -aG wheel blazed
 ```
 
 4. Secure server with SSH key & disable root login
@@ -70,7 +75,7 @@ sudo timedatectl set-timezone America/New_York
 ## Set Hostname
 
 ```shell
-sudo hostnamectl set-hostname 'blz-cx#'
+sudo hostnamectl set-hostname 'dc.blazed.space'
 ```
 
 ## Prevent sleep on lid close (if laptop)
@@ -86,4 +91,10 @@ HandleLidSwitch=ignore
 
 ```shell
 sudo systemctl restart systemd-logind.service
+```
+
+## Setup Domain & Host Mapping
+
+```shell
+sudo nano /etc/hosts
 ```

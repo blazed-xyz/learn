@@ -1,11 +1,112 @@
 # I. Server
+## Setup
+First, open the ports needed. If using HTTPS, open 443. If not, only open 80.
+
+```shell
+sudo firewall-cmd --zone=public --add-service=http --permanent
+sudo firewall-cmd --zone=public --add-service=https --permanent
+sudo firewall-cmd --reload
+```
+
 ## Installing Apache
 
 ```shell
-sudo yum install httpd
+sudo yum install httpd -y
 sudo systemctl start httpd && sudo systemctl enable httpd
 sudo systemctl restart httpd
 ```
+
+Next, modify config:
+
+```shell
+sudo nano /etc/httpd/conf/httpd.conf
+```
+
+Optionally, setup Virtual Hosts:
+
+```shell
+sudo mkdir /var/www/blazed.space/
+sudo nano /etc/httpd/conf.d/blazed.space.conf
+```
+
+```
+<VirtualHost *:80>
+	    ServerAdmin admin@blazed.space
+	    ServerName blazed.space
+	    ServerAlias www.blazed.space
+		DocumentRoot /var/www/blazed.space
+		SetEnv FUEL_ENV production
+		<Directory "/var/www/blazed.space">
+           Options FollowSymlinks
+           AllowOverride all
+           Require all granted
+        </Directory>
+</VirtualHost>
+<IfModule mod_ssl.c>
+	<VirtualHost *:443>
+	    ServerAdmin admin@blazed.space
+	    ServerName blazed.space
+	    ServerAlias www.blazed.space
+		DocumentRoot /var/www/blazed.space
+		Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains;"
+		SetEnv FUEL_ENV production
+	<Directory "/var/www/blazed.space">
+           Options FollowSymlinks
+           AllowOverride all
+           Require all granted
+        </Directory>
+	   SSLEngine on
+	   SSLCertificateFile /etc/ssl/blazed.space/chain.pem
+	   SSLCertificateKeyFile /etc/ssl/blazed.space/key.pem
+
+	   SSLProtocol -all +TLSv1.3 +TLSv1.2
+	   SSLOpenSSLConfCmd Curves X25519:secp521r1:secp384r1:prime256v1
+	   SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
+	</VirtualHost>
+</IfModule>
+```
+
+Included in this repo are example httpd.conf files. 
+
+Optionally, install HTTPS:
+
+```shell
+sudo yum install mod_ssl -y
+sudo nano /etc/httpd/conf.d/ssl.conf
+```
+
+And install the cert bundle to the server:
+
+```shell
+sudo mkdir /etc/ssl/blazed.space
+sudo nano /etc/ssl/blazed.space/cert.pem
+sudo nano /etc/ssl/blazed.space/key.pem
+```
+
+## Configure Mod_wsgi and Python
+```shell
+sudo yum install python3-mod_wsgi -y
+sudo nano /etc/httpd/conf.d/python3_wsgi.conf
+```
+
+Instantiate Mod_wsgi via alias directiories mapped to scripts:
+
+```
+WSGIScriptAlias /test_wsgi /var/www/html/test_wsgi.py
+```
+
+Now, create the python file:
+
+```python
+def application(environ, start_response):
+	status = '200 OK'
+	html   = '<!DOCTYPE HTML><html lang="en" dir="ltr"><body><p>Hello world!</p></body></html>'.encode("utf-8")
+	response_header = [('Content-type', 'text/html')]
+	start_response(status, response_header)
+	return [html]
+```
+
+
 ## Installing NGINX
 
 ```shell
@@ -22,7 +123,6 @@ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.
 sudo yum install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 sudo yum module enable php:remi-8.0 -y
 sudo yum install -y php php-fpm php-cli php-common php-bz2 php-ctype php-curl php-date php-exif php-fileinfo php-filter php-gd php-gettext php-hash php-iconv php-json php-libxml php-mbstring php-mcrypt php-mysqli php-openssl php-pcre php-phar php-pear php-readline php-session php-sockets php-standard php-tokenizer php-zlib -y
-
 ```
 
 ### Installing Composer (PHP)
