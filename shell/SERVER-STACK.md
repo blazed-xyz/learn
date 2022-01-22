@@ -127,7 +127,7 @@ sudo yum install -y php php-fpm php-cli php-common php-bz2 php-ctype php-curl ph
 
 ### Installing Composer (PHP)
 ```shell
-sudo yum install -y unzip php-cli
+sudo yum install -y unzip php-cli wget
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 HASH="$(wget -q -O - https://composer.github.io/installer.sig)"
 php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
@@ -149,6 +149,8 @@ sudo yum install mariadb-server
 sudo systemctl start mariadb && sudo systemctl enable mariadb
 sudo mysql_secure_installation
 ```
+
+
 
 ### Creating db & users
 

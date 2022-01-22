@@ -109,6 +109,7 @@ acl internal-network {
 options {
 	listen-on port 53 { any; };
 	listen-on-v6 { any; };
+	forwarders { 8.8.8.8; 8.8.4.4; 1.1.1.1; 1.0.0.1; };
 	directory       "/var/named";
 	dump-file       "/var/named/data/cache_dump.db";
 	statistics-file "/var/named/data/named_stats.txt";
@@ -189,6 +190,7 @@ B. Authoritative (Primary) DNS Servers
 options {
 	listen-on port 53 { any; };
 	listen-on-v6 { any; };
+	forwarders { 8.8.8.8; 8.8.4.4; 1.1.1.1; 1.0.0.1; };
 	directory       "/var/named";
 	dump-file       "/var/named/data/cache_dump.db";
 	statistics-file "/var/named/data/named_stats.txt";
