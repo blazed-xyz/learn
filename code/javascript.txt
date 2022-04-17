@@ -65,4 +65,14 @@ var elem = document.getElementById('element');
 var elem = document.querySelector('#itemId');
 var elem = document.querySelector('.itemClass');
 
+// Modifying the DOM (Document Object Model)
+const body = document.body;
+const d = document.createElement("div");
+d.innerText = "Hi";
+d.textContent = "Hello World";
+d.innerHTML = "<h1>HI</h1>";
+d.title = "Title";
+d.dataset.textName = "Test Data Attr";
+d.classList.toggle("class1", true);
+body.append(d);
 
