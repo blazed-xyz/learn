@@ -1,5 +1,20 @@
 # Svelte Tutorial
 
+Below are a few simple tutorials for building interactive web applications using the SvelteKit framework.
+
+### Resources
+- [Fire Svelte](https://github.com/blazed-space/fire-svelte)
+  - SvelteKit framework featuring:
+    - [TailwindCSS](https://tailwindcss.com/)
+    - [HTML Monolith Boilerplate](https://github.com/tyler-ruff/tyler-ruff/blob/main/Web-Gallery/HTML-Snippets/index.html)
+    - Blazed [custom-scrollbar](https://github.com/tyler-ruff/tyler-ruff/blob/main/Web-Gallery/CSS-Snippets/custom-scrollbar.css)
+    - [blink-stop](https://github.com/tyler-ruff/tyler-ruff/blob/main/Web-Gallery/CSS-Snippets/blink-stop.css)
+    - Netlify.toml (for easy [Netlify](https://netlify.com/) deploy)
+    - Mobile Burger Menu
+- [Svelte Documentation](https://svelte.dev/docs)
+- [Getting Started Tutorial](https://svelte.dev/tutorial/basics)
+- [SvelteKit Documentation](https://kit.svelte.dev/docs/introduction)
+
 ## Insert Data into \<head>
 ```html
     <svelte:head>

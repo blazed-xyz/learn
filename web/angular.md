@@ -1,5 +1,19 @@
 # Angular Tutorials
 
+Below are a few simple tutorials for building interactive web applications using the Angular framework.
+
+### Resources
+- [Fire Angular](https://github.com/blazed-space/fire-angular)
+  - Angular framework featuring:
+    - [TailwindCSS](https://tailwindcss.com/)
+    - [HTML Monolith Boilerplate](https://github.com/tyler-ruff/tyler-ruff/blob/main/Web-Gallery/HTML-Snippets/index.html)
+    - Blazed [custom-scrollbar](https://github.com/tyler-ruff/tyler-ruff/blob/main/Web-Gallery/CSS-Snippets/custom-scrollbar.css)
+    - [blink-stop](https://github.com/tyler-ruff/tyler-ruff/blob/main/Web-Gallery/CSS-Snippets/blink-stop.css)
+    - Netlify.toml (for easy [Netlify](https://netlify.com/) deploy)
+    - Mobile Burger Menu
+    - 404 Page Not Found Action (Uknown Module)
+- [Angular Documentation](https://angular.io/docs)
+
 ## Accept Input Property
 1. Add import:
 	```ts
