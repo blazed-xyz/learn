@@ -41,6 +41,176 @@ sudo nmcli connection modify <IFACE_NAME> ipv4.dns 10.0.0.10 10.0.0.11 10.0.0.12
 sudo nmcli connection modify <IFACE_NAME> ipv4.dns-search blazed.world
 ```
 
+## Setting up LDAP
+Install:
+```sh
+sudo yum config-manager --set-enabled plus
+sudo yum install -y openldap openldap-clients openldap-server
+```
+
+Configure the database for the OpenLDAP server. The database is stored in the directory /var/lib/ldap. You can create the directory with the following command:
+```sh
+sudo mkdir /var/lib/ldap
+```
+
+Set the ownership and permissions for the directory with the following command:
+```sh
+sudo chown -R ldap:ldap /var/lib/ldap
+sudo chmod 700 /var/lib/ldap
+```
+
+Copy the default configuration file to the correct location using the following command:
+```sh
+sudo cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+```
+
+Set the ownership and permissions for the file with the following command:
+```sh
+sudo chown ldap:ldap /var/lib/ldap/DB_CONFIG
+sudo chmod 600 /var/lib/ldap/DB_CONFIG
+```
+
+Create the initial directory structure by using the following command:
+```sh
+sudo slapadd -n 0 -F /etc/openldap/slapd.d
+```
+
+Set the ownership and permissions for the directory with the following command:
+```sh
+sudo chown -R ldap:ldap /etc/openldap/slapd.d
+sudo chmod 700 /etc/openldap/slapd.d
+```
+
+Generate a password:
+
+
+Modify the file /etc/openldap/slapd.d/cn=config/olcDatabase={2}hdb.ldif to set the root password. Add the following lines after the line olcRootPW: {CLEARTEXT}password:
+```
+replace: olcRootPW
+olcRootPW: {CLEARTEXT}your_password
+```
+
+Start the OpenLDAP server using the following command:
+```sh
+sudo systemctl start slapd
+sudo systemctl enable slapd
+```
+
+Verify the OpenLDAP server is running correctly by using the following command:
+```sh
+sudo ldapsearch -x -b '' -s base '(objectclass=*)' namingContexts
+```
+
+## Setting up Samba 
+Install:
+```sh
+sudo yum install samba samba-common samba-client
+```
+
+Next, we will create the share, run the following commands:
+```sh
+sudo mkdir -p /srv/blazed/data
+sudo chmod -R 755 /srv/blazed/data
+sudo chcon -t samba_share_t /srv/blazed/data
+```
+
+After that, open the necessary port(s) to prevent issue:
+```sh
+sudo firewall-cmd --add-service=samba --zone=public --permanent
+sudo firewall-cmd --reload
+```
+
+Once Samba is installed, you need to configure it to share resources on your network. The main configuration file is /etc/samba/smb.conf. Open this file using your preferred text editor, such as nano:
+```sh
+sudo nano /etc/samba/smb.conf
+```
+
+In this file, you can specify the resources you want to share, such as folders and printers. For example, to share a folder named share in your home directory, you can add the following lines to the file:
+```
+[global]
+  workgroup = OFFICE
+  server string = Samba Server %v
+  netbios name = blz-one
+  security = user
+  map to guest = bad user
+  dns proxy = no
+  ntlm auth = true
+
+[Public]
+   path = /srv/blazed/data
+   available = yes
+   valid users = yourusername
+   read only = no
+   browsable = yes
+   guest ok = yes
+```
+
+To verify the configurations made, run the command:
+```sh
+sudo testparm
+```
+
+Start the service:
+```sh
+sudo systemctl start smb
+sudo systemctl enable smb
+sudo systemctl start nmb
+sudo systemctl enable nmb
+```
+
+* Secure the Samba private directory:
+First, create a new Samba user, and set a default password, as follows:
+```sh
+sudo useradd smbuser
+sudo smbpasswd -a smbuser
+```
+
+Next, we will create a new group for this user:
+```sh
+sudo groupadd smb_group
+sudo usermod -g smb_group smbuser
+```
+
+Now, we can create a private share:
+```sh
+sudo mkdir -p  /srv/blazed/private
+sudo chmod -R 770 /srv/blazed/private
+sudo chcon -t samba_share_t /srv/blazed/private
+sudo chown -R root:smb_group /srv/blazed/private
+```
+
+Finally, change your config to support the private share:
+```sh
+sudo nano /etc/samba/smb.conf
+```
+
+Add to the bottom of your config:
+```
+[Private]
+  path = /srv/blazed/private
+  valid users = @smb_group
+  guest ok = no
+  writable = no
+  browsable = yes
+```
+
+Now, restart services to see changes:
+```sh
+sudo systemctl restart smb && sudo systemctl restart nmb
+```
+
+To connect:
+```sh
+sudo yum install samba-client
+```
+
+Then, connect to the server as follows:
+```sh
+smbclient ‘\[SERVER-IP]\private’ -U smbuser
+```
+
+* Where *SERVER-IP* is the IP address, hostname, or FQDN of the server.
+
 ## Setting up DHCP Server
 
 A DHCP server provides automatic IP address (and other provisions) to clients on a lan segment.

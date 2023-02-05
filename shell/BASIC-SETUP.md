@@ -1,6 +1,37 @@
 # Server Provisioning Steps & Standards
 ## Blazed Labs LLC (c) 2021 Tyler Ruff
 
+0. Some Useful Bash Functions
+- Get external IP address
+```sh
+curl -4 ifconfig.co
+```
+- Get internal IP address
+```sh
+ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}'
+```
+- Get Hostname
+```sh
+hostname -s
+```
+- Get full hostname+domain
+```sh
+name -n
+```
+- Get uptime duration
+```sh
+uptime | grep -ohe 'up .*' | sed 's/up //g' | awk -F "," '{print $1}'
+```
+- Get active users
+```sh
+uptime | grep -ohe '[0-9.*] user[s,]'
+```
+- Show system clock
+```sh
+timedatectl | sed -n '/Local time/ s/^[ \t]*Local time:\(.*$\)/\1/p'
+```
+
+
 1. Install Rocky Linux 8
 2. Install some pre-recs
 ```shell
@@ -43,7 +74,34 @@ sudo chmod 600 ~/.ssh/authorized_keys
 sudo chown $USER:$USER ~/.ssh -R
 ```
 
-6. Setup Git
+* Set SSH Banners
+
+- Access Banner (Shown before login)
+First, create a shell script for the banner, ex:
+```sh
+#!/bin/bash
+
+echo -e "
+You are now logging in to Blazed Servers
+"
+```
+ clone the desired banner to '/etc/profile.d/welcomeBanner.sh', then run:
+```sh
+sudo chmod 644 /etc/profile.d/welcomeBanner.sh
+sudo nano /etc/ssh/sshd_config
+```
+And uncomment "Banner", and add:
+```
+Banner /etc/profile.d/welcomeBanner.sh
+```
+
+- Welcome Banner (MOTD, shown only on successful login)
+clone the desired welcome banner to '/etc/server-info.sh'
+```
+
+```
+
+1. Setup Git
 
 For access machines
 
@@ -81,8 +139,10 @@ sudo nano /etc/systemd/logind.conf
 
 Change:
 HandleLidSwitch=lock
+HandleLidSwitchExternalPower=suspend
 to
 HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore 
 
 ```shell
 sudo systemctl restart systemd-logind.service
@@ -93,3 +153,4 @@ sudo systemctl restart systemd-logind.service
 ```shell
 sudo nano /etc/hosts
 ```
+

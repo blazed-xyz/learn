@@ -22,3 +22,34 @@ config term
 ```
 
 Short for "configure terminal", which brings you into "configuration" mode.
+
+### NAT Link to Remote Linux Server
+Here are the high-level steps to set up NAT resolution between your Cisco router and remote Linux VPS with a public IP:
+1. Configure your Linux VPS to have a static IP address.
+2. Configure the Cisco router as the default gateway for your Linux VPS.
+3. On the Cisco router, configure NAT (Network Address Translation) to map the public IP of your Linux VPS to an internal IP on your LAN.
+4. On the Cisco router, configure port forwarding to forward incoming traffic to the internal IP of your Linux VPS.
+
+Here is an example of the command-line interface (CLI) configuration:
+```
+! On the Cisco Router
+! Configure NAT
+ip nat inside source static <internal IP of Linux VPS> <public IP of Linux VPS>
+! Configure port forwarding
+ip access-list extended <ACL name>
+permit tcp any host <public IP of Linux VPS> eq <port number>
+! Apply the ACL to the NAT rule
+ip nat inside destination list <ACL name> interface <outside interface name> overload
+```
+
+Now, move over to the Linux device, check if IPv4 forwarding is enabled, run:
+```sh
+cat /proc/sys/net/ipv4/ip_forward
+```
+If it is 1 (enabled), go ahead. If not, you will have to put net.ipv4.ip_forward=1 on /etc/sysctl.conf and run sysctl -p.
+
+Once you're sure IPv4 forwarding is enabled, run:
+```sh
+iptables -t nat -A  PREROUTING -d 8.8.8.8 -j DNAT --to-destination 192.168.0.10
+```
+
