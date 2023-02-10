@@ -31,14 +31,12 @@ uptime | grep -ohe '[0-9.*] user[s,]'
 timedatectl | sed -n '/Local time/ s/^[ \t]*Local time:\(.*$\)/\1/p'
 ```
 
-
 1. Install Rocky Linux 8
 2. Install some pre-recs
 ```shell
 sudo yum install -y git nano gcc-c++ make
 sudo yum update -y
 ```
-
 
 3. Create user 'blazed'
 
@@ -72,6 +70,11 @@ sudo chmod 700 ~/.ssh
 sudo nano ~/.ssh/authorized_keys
 sudo chmod 600 ~/.ssh/authorized_keys
 sudo chown $USER:$USER ~/.ssh -R
+```
+
+* To connect w/ key:
+```sh
+sudo ssh -i ~/Servers/[HOST]/[HOST] [USER]@[IP]
 ```
 
 * Set SSH Banners
@@ -115,7 +118,7 @@ For on-prem machines
 
 ```shell
 git config --global user.name "BlazedLabs-TX#"
-git config --global user.email dev@blazed.space
+git config --global user.email hello@blazed.systems
 ```
 
 
