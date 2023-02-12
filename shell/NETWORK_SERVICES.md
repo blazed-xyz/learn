@@ -46,6 +46,7 @@ Install:
 ```sh
 sudo yum config-manager --set-enabled plus
 sudo yum install -y openldap openldap-clients openldap-server
+sudo yum --enablerepo=epel -y && sudo yum install -y openldap-servers openldap-clients
 ```
 
 Configure the database for the OpenLDAP server. The database is stored in the directory /var/lib/ldap. You can create the directory with the following command:
@@ -59,15 +60,29 @@ sudo chown -R ldap:ldap /var/lib/ldap
 sudo chmod 700 /var/lib/ldap
 ```
 
-Copy the default configuration file to the correct location using the following command:
+Generate a new Master Password:
 ```sh
-sudo cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+sudo slappasswd
 ```
 
-Set the ownership and permissions for the file with the following command:
+Modify the config file:
 ```sh
-sudo chown ldap:ldap /var/lib/ldap/DB_CONFIG
-sudo chmod 600 /var/lib/ldap/DB_CONFIG
+sudo nano ldaprootpasswd.ldif
+```
+
+Add the contents:
+
+```
+dn: olcDatabase={0}config,cn=config
+changetype: modify
+add: olcRootPW
+olcRootPW: {SSHA}PASSWORD_CREATED
+```
+
+Then run:
+```sh
+sudo systemctl enable slapd && sudo systemctl restart slapd
+sudo ldapadd -Y EXTERNAL -H ldapi:/// -f ldaprootpasswd.ldif  
 ```
 
 Create the initial directory structure by using the following command:
@@ -521,3 +536,33 @@ sudo firewall-cmd --add-service=rpc-bind --permanent
 sudo firewall-cmd --add-port={944-951/tcp,944-951/udp} --permanent
 ```
 
+## Kerberos
+
+```sh
+sudo yum install krb5-server.x86_64 krb5-workstation.x86_64 -y
+sudo nano /etc/krb5.conf
+```
+
+* Set KDC DB Master Password:
+```sh
+sudo kdb5_util create -s
+```
+
+* Create admin account:
+```sh
+sudo kadmin.local -q "addprinc admin/admin"
+```
+
+* Enable Kerberos Service
+```sh
+sudo systemctl enable krb5kdc --now && sudo systemctl enable kadmin --now
+```
+
+* Add other users
+```sh
+sudo kadmin.local
+addprinc blazed@BLAZED.DEV
+ktadd -k /etc/blazed.keytab blazed@BLAZED.CC
+exit
+sudo chmod 644 /etc/blazed.keytab
+```
