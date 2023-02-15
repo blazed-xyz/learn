@@ -157,3 +157,11 @@ sudo systemctl restart systemd-logind.service
 sudo nano /etc/hosts
 ```
 
+## Create SwapFile (for memory stack overflow prevention)
+```sh
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+```
+

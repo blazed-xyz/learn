@@ -106,6 +106,50 @@ def application(environ, start_response):
 	return [html]
 ```
 
+## Apache httpd - Enable Userdir
+```sh
+sudo nano /etc/httpd/conf.d/userdir.conf
+```
+
+```
+# line 17 : comment out
+#UserDir disabled
+
+# line 24 : uncomment
+UserDir public_html
+
+# line 32, 33
+<Directory "/home/*/public_html">
+    AllowOverride All     # change if you need
+    Options None          # change if you need
+    Require method GET POST OPTIONS
+</Directory>
+```
+
+```sh
+cd ~
+sudo mkdir public_html
+sudo chmod 755 -R ~/public_html
+sudo chown $USER:$USER ~/public_html
+sudo systemctl reload httpd
+sudo nano ~/public_html/index.html
+```
+
+```html
+<html>
+	<body>
+		<div style="width: 100%; font-size: 40px; font-weight: bold; text-align: center;">
+			UserDir Test Page
+		</div>
+	</body>
+</html>
+```
+
+* If SELinux is enabled, change policy like follows:
+```sh
+sudo setsebool -P httpd_enable_homedirs on
+sudo restorecon -R /home
+```
 
 ## Installing NGINX
 
