@@ -25,3 +25,13 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 sudo yum install -y code
 ```
 
+## Install Snap and Bitwarden
+
+```shell
+sudo yum install epel-release
+sudo yum install snapd
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+sudo systemctl restart snapd
+sudo snap install bitwarden
+```

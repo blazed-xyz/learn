@@ -181,8 +181,28 @@ sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 ## Installing Node.js
 
 ```shell
-sudo curl -sL https://rpm.nodesource.com/setup_16.x | sudo bash -
+sudo curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
 sudo yum install nodejs -y
+```
+
+## Installing & Logging into Firebase CLI
+
+```shell
+curl -sL https://firebase.tools | bash
+firebase login
+```
+
+## Installing & Logging into Netlify CLI
+
+```shell
+sudo npm install netlify-cli -g
+sudo netlify login
+```
+
+## Installing Angular CLI
+
+```shell
+sudo npm install -g @angular/cli
 ```
 
 # III. DB
