@@ -205,6 +205,37 @@ sudo netlify login
 sudo npm install -g @angular/cli
 ```
 
+## Installing & Logging into Google Cloud CLI
+
+```shell
+sudo curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-420.0.0-linux-x86_64.tar.gz
+sudo tar -xf google-cloud-cli-420.0.0-linux-x86_64.tar.gz
+sudo ./google-cloud-sdk/install.sh 
+sudo ./google-cloud-sdk/bin/gcloud auth login
+```
+
+## Installing & Logging into the DigitalOcean CLI
+
+* First, create an access token [here](https://cloud.digitalocean.com/account/api/tokens), copy that access token.
+
+```shell
+cd ~
+sudo wget https://github.com/digitalocean/doctl/releases/download/v1.92.0/doctl-1.92.0-linux-amd64.tar.gz
+sudo tar xf ~/doctl-1.92.0-linux-amd64.tar.gz
+sudo sudo mv ~/doctl /usr/local/bin
+doctl auth init
+doctl serverless install
+```
+
+## Installing & Logging into the Linode CLI
+
+```sh
+sudo yum install -y pip3
+pip3 install linode-cli --upgrade
+pip3 install boto
+linode-cli configure
+```
+
 # III. DB
 ## Installing MariaDB
 
