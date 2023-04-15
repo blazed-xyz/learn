@@ -35,3 +35,33 @@ sudo ln -s /var/lib/snapd/snap /snap
 sudo systemctl restart snapd
 sudo snap install bitwarden
 ```
+
+## Install Node.js
+
+```shell
+sudo curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
+sudo yum install nodejs -y
+```
+
+## Install Netlify CLI
+```shell
+npm install netlify-cli -g
+netlify login
+```
+
+## Install Firebase CLI & firebase-tools
+```
+curl -sL https://firebase.tools | bash
+firebase login
+```
+
+## Install Sqlite
+```shell
+sudo yum install -y sqlite
+```
+
+## Install Ruby & Rails
+```shell
+sudo yum install -y ruby ruby-devel
+gem install rails
+```
