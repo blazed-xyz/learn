@@ -43,6 +43,11 @@ sudo curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
 sudo yum install nodejs -y
 ```
 
+## Install Angular CLI
+```shell
+npm install -g @angular/cli
+```
+
 ## Install Netlify CLI
 ```shell
 npm install netlify-cli -g
@@ -51,7 +56,7 @@ netlify login
 
 ## Install Firebase CLI & firebase-tools
 ```
-curl -sL https://firebase.tools | bash
+npm install -g firebase-tools
 firebase login
 ```
 
