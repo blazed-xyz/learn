@@ -6,3 +6,4 @@ Please visit our [website](https://blazed.xyz) or [Github](https://github.com/bl
 
 ## Additional Resources
 - [Mozilla Developers](https://developer.mozilla.org/)
+- [Blazed Developers](https://blazed.dev/)
