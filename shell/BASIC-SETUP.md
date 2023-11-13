@@ -108,10 +108,23 @@ clone the desired welcome banner to '/etc/server-info.sh'
 
 For access machines
 
+First, [generate a new GPG key](https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key), follow the official GitHub tutorial.
+
+To get [GPG-KEY-NAME]:
+```shell
+gpg --list-secret-keys --keyid-format=long
+```
+You should get an output like:
+```
+sec   ed25519/[GPG-KEY-NAME]
+```
+You'll want to use the string of characters to the right of the slash, "[GPG-KEY-NAME]".
+
 ```shell
 git config --global user.name "tyler-ruff"
 git config --global user.email hello@blazed.space
 git config --global user.signingkey [GPG-KEY-NAME]
+git config --global commit.gpgsign true
 ```
 
 For on-prem machines
