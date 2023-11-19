@@ -41,6 +41,17 @@ sudo nmcli connection modify <IFACE_NAME> ipv4.dns 10.0.0.10 10.0.0.11 10.0.0.12
 sudo nmcli connection modify <IFACE_NAME> ipv4.dns-search blazed.world
 ```
 
+### Setting up NTP servers
+```shell
+sudo yum -y install chrony
+sudo nano /etc/chrony.conf
+sudo systemctl enable --now chronyd
+sudo firewall-cmd --add-service=ntp
+sudo firewall-cmd --runtime-to-permanent
+```
+
+
+
 ## Setting up LDAP
 Install:
 ```sh
