@@ -178,3 +178,4 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 ```
 
+Thank you for reading!
