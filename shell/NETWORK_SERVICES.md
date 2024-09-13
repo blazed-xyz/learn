@@ -41,6 +41,50 @@ sudo nmcli connection modify <IFACE_NAME> ipv4.dns 10.0.0.10 10.0.0.11 10.0.0.12
 sudo nmcli connection modify <IFACE_NAME> ipv4.dns-search blazed.world
 ```
 
+### Setting up TFTP servers
+1. Install tftp server
+```shell
+sudo yum install tftp-server -y
+```
+2. Edit /usr/lib/systemd/system/tftp.service file and modify ExecStart line adding parameter -c:
+```shell
+sudo nano /usr/lib/systemd/system/tftp.service
+```
+
+```
+[Unit]
+Description=Tftp Server
+Requires=tftp.socket
+Documentation=man:in.tftpd
+
+[Service]
+ExecStart=/usr/sbin/in.tftpd -c -s /var/lib/tftpboot
+StandardInput=socket
+
+[Install]
+Also=tftp.socket
+```
+
+3. Reload systemd & add firewall rule
+```shell
+sudo systemctl daemon-reload
+sudo firewall-cmd --zone=public --add-service=tftp --permanent
+sudo firewall-cmd --reload
+```
+
+4. Change permission for upload directory:
+
+```shell
+sudo chmod 707 /var/lib/tftpboot
+sudo systemctl enable --now tftp
+```
+
+5. Turn on tftp_anon_write
+```shell
+sudo setsebool -P tftp_anon_write 1
+```
+
+
 ### Setting up NTP servers
 ```shell
 sudo yum -y install chrony
@@ -49,8 +93,6 @@ sudo systemctl enable --now chronyd
 sudo firewall-cmd --add-service=ntp
 sudo firewall-cmd --runtime-to-permanent
 ```
-
-
 
 ## Setting up LDAP
 Install:

@@ -47,3 +47,8 @@ router eigrp 1
 8. Setup access list
 access-list 10 permit 192.168.0.0 0.0.255.255
 
+
+Setup port forwarding
+
+ip nat inside source static tcp 10.0.0.2 80 192.168.10.10 80 extendable
+

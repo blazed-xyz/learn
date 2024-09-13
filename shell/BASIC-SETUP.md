@@ -177,3 +177,10 @@ sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
 ```
+
+## Optionally Install Qemu (if virtual machin)
+```shell
+sudo yum install qemu-guest-agent
+sudo systemctl start qemu-guest-agent
+sudo systemctl enable qemu-guest-agent
+```

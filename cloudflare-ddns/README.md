@@ -14,11 +14,11 @@ sudo mv config-example.json config.json
 ```
 4. And setup a CronJob:
 ```shell
-sudo crontab -e
+crontab -e
 ```
 5. Add the following to the document (for every 15 minutes):
 ```cron
-*/15 * * * * /home/blazed/cloudflare-ddns/sync
+*/15 * * * * bash /home/blazed/cloudflare-ddns/start-sync.sh
 ```
 
 
