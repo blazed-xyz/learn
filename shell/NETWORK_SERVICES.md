@@ -330,6 +330,12 @@ sudo firewall-cmd --add-service=dhcp --zone=public --permanent
 sudo firewall-cmd --reload
 ```
 
+If you get an error, its usually configuration. Run the following command
+to test the config:
+```
+sudo dhcpd -t -cf /etc/dhcp/dhcpd.conf
+```
+
 ## Setting up DNS Server
 
 ```shell
