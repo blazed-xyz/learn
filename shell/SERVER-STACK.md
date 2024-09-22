@@ -159,6 +159,70 @@ sudo systemctl start nginx && sudo systemctl enable nginx
 sudo systemctl restart nginx
 ```
 
+### NGINX Content
+* **/usr/share/nginx/html**
+
+### NGINX Config
+* **/etc/nginx/nginx.conf**
+* **/etc/nginx/conf.d/**
+
+### Setting up Server Blocks on NGINX
+First, create the directory for your virtual domain:
+```shell
+sudo mkdir -p /var/www/your_domain/html
+```
+
+Next, assign ownership of the directory with the $USER environment variable, which should reference your current system user:
+```shell
+sudo chown -R $USER:$USER /var/www/your_domain/html
+```
+
+OR:
+
+```shell
+sudo chown -R nginx:nginx /var/www/your_domain/html
+```
+
+Now you can create a simple HTML page for your content:
+```shell
+nano /var/www/your_domain/html/index.html
+```
+
+And then add config for your virtual domain:
+```shell
+sudo nano /etc/nginx/conf.d/your_domain.conf
+```
+```conf
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/your_domain/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name your_domain www.your_domain;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+```
+
+Test to make sure there's no syntax errors:
+```shell
+sudo nginx -t
+```
+
+Restart NGINX:
+```shell
+sudo systemctl restart nginx
+```
+
+Update SELinux:
+```shell
+sudo chcon -vR system_u:object_r:httpd_sys_content_t:s0 /var/www/your_domain/
+```
+
 # II. Platform
 ## Installing PHP 8.0
 
