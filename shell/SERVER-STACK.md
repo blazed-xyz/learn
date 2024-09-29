@@ -245,9 +245,16 @@ sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 ## Installing Node.js
 
 ```shell
-sudo curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
+sudo curl -sL https://rpm.nodesource.com/setup_22.x | sudo bash -
 sudo yum install nodejs -y
 ```
+
+### Installing PM2 for Node Process Management
+```shell
+sudo npm install pm2 -g
+sudo pm2 startup
+```
+
 
 ## Installing & Logging into Firebase CLI
 
