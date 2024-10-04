@@ -54,10 +54,27 @@ npm install netlify-cli -g
 netlify login
 ```
 
+## Install Vercel CLI
+```shell
+npm i -g vercel
+vercel login
+```
+
 ## Install Firebase CLI & firebase-tools
 ```
 npm install -g firebase-tools
 firebase login
+```
+
+## Install Google Cloud CLI
+```shell
+(New-Object Net.WebClient).DownloadFile("https://dl.google.com/dl/cloudsdk/channels/rapid/", "$env:Temp\GoogleCloudSDKInstaller.exe")
+
+& $env:Temp\GoogleCloudSDKInstaller.exe
+```
+Once installed you can authenticate:
+```shell
+gcloud auth login
 ```
 
 ## Install Sqlite
