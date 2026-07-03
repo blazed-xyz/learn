@@ -1,4 +1,5 @@
 # Activate Windows
+How to activate Windows.
 
 ## TL;DR
 Run the following commands in a new power shell (administrator) console:
