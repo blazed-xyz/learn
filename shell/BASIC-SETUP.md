@@ -85,7 +85,27 @@ First, create a shell script for the banner, ex:
 #!/bin/bash
 
 echo -e "
-You are now logging in to Blazed Servers
+*******************************************************************************
+                           UNAUTHORIZED ACCESS WARNING
+*******************************************************************************
+
+This is a restricted, private computer system owned and operated jointly by 
+Blazed Labs LLC and Ruff Management Inc. Unauthorized access, use, misuse, 
+or modification of this system or any data contained herein is strictly 
+prohibited.
+
+If you are not an authorized user expressly permitted by Blazed Labs LLC 
+and Ruff Management Inc., disconnect immediately. 
+
+By continuing to access this system, you expressly consent to the continuous 
+monitoring, logging, and auditing of all your activities. Evidence of 
+unauthorized access or malicious activity will be disclosed to company 
+management and law enforcement authorities. Unauthorized users will be 
+prosecuted to the absolute maximum extent permitted by local, national, 
+and international law, incurring civil and criminal penalties of the highest 
+degree.
+
+*******************************************************************************
 "
 ```
  clone the desired banner to '/etc/profile.d/welcomeBanner.sh', then run:

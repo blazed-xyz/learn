@@ -245,7 +245,7 @@ sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 ## Installing Node.js
 
 ```shell
-sudo curl -sL https://rpm.nodesource.com/setup_22.x | sudo bash -
+sudo curl -sL https://rpm.nodesource.com/setup_24.x | sudo bash -
 sudo yum install nodejs -y
 ```
 
